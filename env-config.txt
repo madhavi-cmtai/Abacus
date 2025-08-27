@@ -1,0 +1,36 @@
+# Copy this content to your .env.local file
+
+# MongoDB Configuration
+MONGODB_URI=mongodb://localhost:27017/rmhse
+
+# Next.js Configuration
+NEXTAUTH_URL=http://localhost:3000
+NEXTAUTH_SECRET=your-secret-key-here-make-it-long-and-random
+
+# JWT Configuration
+JWT_SECRET=your-jwt-secret-key-here-make-it-long-and-random
+
+# API Configuration
+API_BASE_URL=http://localhost:3000/api
+
+# File Upload Configuration (if using cloud storage)
+# CLOUDINARY_CLOUD_NAME=your-cloud-name
+# CLOUDINARY_API_KEY=your-api-key
+# CLOUDINARY_API_SECRET=your-api-secret
+
+# Email Configuration (if using email services)
+# SMTP_HOST=smtp.gmail.com
+# SMTP_PORT=587
+# SMTP_USER=your-email@gmail.com
+# SMTP_PASS=your-app-password
+
+# Payment Gateway Configuration (if using payment services)
+# STRIPE_SECRET_KEY=sk_test_your_stripe_secret_key
+# STRIPE_PUBLISHABLE_KEY=pk_test_your_stripe_publishable_key
+
+# Environment
+NODE_ENV=development
+
+
+
+
