@@ -4,12 +4,12 @@ import { ServiceModel } from '@/app/api/models/Service';
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     await connectToDatabase();
-    
-    const service = await ServiceModel.findById(params.id).lean();
+    const { id } = await params;
+    const service = await ServiceModel.findById(id).lean();
     
     if (!service) {
       return NextResponse.json(
@@ -33,11 +33,11 @@ export async function GET(
 
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     await connectToDatabase();
-    
+    const { id } = await params;
     const body = await request.json();
     const { title, description, image, price, category, status } = body;
     
@@ -50,7 +50,7 @@ export async function PUT(
     if (status !== undefined) updateData.status = status;
     
     const service = await ServiceModel.findByIdAndUpdate(
-      params.id,
+      id,
       updateData,
       { new: true, runValidators: true }
     ).lean();
@@ -78,12 +78,12 @@ export async function PUT(
 
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     await connectToDatabase();
-    
-    const service = await ServiceModel.findByIdAndDelete(params.id);
+    const { id } = await params;
+    const service = await ServiceModel.findByIdAndDelete(id);
     
     if (!service) {
       return NextResponse.json(

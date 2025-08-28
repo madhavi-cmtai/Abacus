@@ -12,10 +12,10 @@ if (mongoose.connection.readyState === 0) {
 // GET /api/routes/faq/[id] - Get FAQ by ID
 export async function GET(
   req: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const { id } = params;
+    const { id } = await params;
     if (!mongoose.Types.ObjectId.isValid(id)) {
       return NextResponse.json({ error: "Invalid FAQ ID" }, { status: 400 });
     }
@@ -35,10 +35,10 @@ export async function GET(
 // PUT /api/routes/faq/[id] - Update FAQ by ID
 export async function PUT(
   req: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const { id } = params;
+    const { id } = await params;
     if (!mongoose.Types.ObjectId.isValid(id)) {
       return NextResponse.json({ error: "Invalid FAQ ID" }, { status: 400 });
     }
@@ -74,10 +74,10 @@ export async function PUT(
 // DELETE /api/routes/faq/[id] - Delete FAQ by ID
 export async function DELETE(
   req: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const { id } = params;
+    const { id } = await params;
     if (!mongoose.Types.ObjectId.isValid(id)) {
       return NextResponse.json({ error: "Invalid FAQ ID" }, { status: 400 });
     }

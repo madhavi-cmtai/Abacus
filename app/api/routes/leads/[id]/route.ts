@@ -4,10 +4,10 @@ import { LeadModel } from "@/app/api/models/leads";
 // GET /api/routes/leads/[id] - Get a lead by ID
 export async function GET(
   req: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const { id } = params;
+    const { id } = await params;
     const lead = await LeadModel.findById(id).lean();
     if (!lead) {
       return NextResponse.json(
@@ -28,10 +28,10 @@ export async function GET(
 // PUT /api/routes/leads/[id] - Update a lead by ID
 export async function PUT(
   req: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const { id } = params;
+    const { id } = await params;
     const body = await req.json();
     const { name, email, subject, message } = body;
 
@@ -68,10 +68,10 @@ export async function PUT(
 // DELETE /api/routes/leads/[id] - Delete a lead by ID
 export async function DELETE(
   req: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const { id } = params;
+    const { id } = await params;
     const deletedLead = await LeadModel.findByIdAndDelete(id);
 
     if (!deletedLead) {
