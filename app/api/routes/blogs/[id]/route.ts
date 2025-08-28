@@ -5,11 +5,11 @@ import { BlogModel } from '@/app/api/models/blogs';
 // Get blog by ID
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     await connectToDatabase();
-    const { id } = params;
+    const { id } = await params;
 
     const blog = await BlogModel.findById(id).lean();
     if (!blog) {
@@ -32,11 +32,11 @@ export async function GET(
 // Update blog by ID
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     await connectToDatabase();
-    const { id } = params;
+    const { id } = await params;
     const body = await request.json();
 
     const updateData: any = {};
@@ -76,11 +76,11 @@ export async function PUT(
 // Delete blog by ID
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     await connectToDatabase();
-    const { id } = params;
+    const { id } = await params;
 
     const deletedBlog = await BlogModel.findByIdAndDelete(id).lean();
     if (!deletedBlog) {
